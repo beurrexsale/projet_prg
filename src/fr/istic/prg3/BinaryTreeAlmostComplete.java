@@ -5,31 +5,26 @@ package fr.istic.prg3;
 
 import java.util.Objects;
 
-
-
 /**
  * @version 1.0
  *
  */
 public class BinaryTreeAlmostComplete {
-	
+
 	protected int rootValue;
 	protected BinaryTreeAlmostComplete left;
 	protected BinaryTreeAlmostComplete right;
 	protected BinaryTreeAlmostComplete up;
 	protected int nbDescendants;
-	
-	
+
 	public BinaryTreeAlmostComplete(int value) {
 		this(value, null);
 	}
-	
-	
+
 	public BinaryTreeAlmostComplete(int[] values) {
 		// TODO
 	}
-	
-	
+
 	public BinaryTreeAlmostComplete(int value, BinaryTreeAlmostComplete parent) {
 		this.rootValue = value;
 		this.left = null;
@@ -37,37 +32,29 @@ public class BinaryTreeAlmostComplete {
 		this.up = parent;
 		this.updateNumberOfDescendants();
 	}
-	
-	
-	
-	
-	
-	
+
 	public void addValue(int value) {
 		if (Objects.isNull(this.left)) {
 			this.left = new BinaryTreeAlmostComplete(value, this);
 			this.updateNumberOfDescendants();
-		}
-		else {
+		} else {
 			if (Objects.isNull(this.right)) {
 				this.right = new BinaryTreeAlmostComplete(value, this);
 				this.updateNumberOfDescendants();
-			}
-			else {
+			} else {
 				// both left and right exist
 				int nbDescLeft = this.left.nbDescendants;
 				if (getLevels(nbDescLeft) == getLevels(nbDescLeft + 1)) {
 					// the lowest level of left child is not full
 					this.left.addValue(value);
-				}
-				else {
+				} else {
 					// the lowest level of left child is full
 					int nbDescRight = this.right.nbDescendants;
 					if (nbDescLeft > nbDescRight) {
-						// the lowest level of left child is full, AND the lowest level of right child is not full
+						// the lowest level of left child is full, AND the lowest level of right child
+						// is not full
 						this.right.addValue(value);
-					}
-					else {
+					} else {
 						// both left and right child are full and have the same level
 						this.left.addValue(value);
 					}
@@ -75,43 +62,32 @@ public class BinaryTreeAlmostComplete {
 			}
 		}
 	}
-	
-	
-	
+
 	protected static int getLevels(int n) {
-		return (int)(Math.log(n + 1) / Math.log(2));
+		return (int) (Math.log(n + 1) / Math.log(2));
 	}
-	
-	
+
 	protected BinaryTreeAlmostComplete getRightmostLowestNode() {
-		// TODO
+		BinaryTreeAlmostComplete t = new BinaryTreeAlmostComplete(null);
+		return t;
 	}
-	
-	
-	
-	
+
 	public void siftDown() {
 		// TODO
 	}
-	
-	
+
 	public void siftUp() {
 		// TODO
 	}
-	
-	
-	
+
 	public String toString() {
 		return this.toString("");
 	}
-	
-	
+
 	public String toString(String offset) {
-		// TODO
+		return "todo";
 	}
-	
-	
-	
+
 	protected void updateNumberOfDescendants() {
 		this.nbDescendants = 0;
 		if (Objects.nonNull(this.left)) {
@@ -124,7 +100,6 @@ public class BinaryTreeAlmostComplete {
 			up.updateNumberOfDescendants();
 		}
 	}
-	
 
 	/**
 	 * @param args
