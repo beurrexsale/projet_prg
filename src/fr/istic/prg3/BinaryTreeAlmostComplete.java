@@ -22,7 +22,10 @@ public class BinaryTreeAlmostComplete {
 	}
 
 	public BinaryTreeAlmostComplete(int[] values) {
-		// TODO
+		this(values[0], null);
+		for (int i = 1; i<values.length; i++){
+			this.addValue(values[i]);
+		}
 	}
 
 	public BinaryTreeAlmostComplete(int value, BinaryTreeAlmostComplete parent) {
@@ -85,7 +88,13 @@ public class BinaryTreeAlmostComplete {
 	}
 
 	public String toString(String offset) {
-		return "todo";
+		String space = offset;
+		offset += this.rootValue + "\n";
+		if(this.left != null)
+			offset += this.left.toString(space +"  ");
+		if(this.right != null)
+			offset+= this.right.toString(space + "  ");
+		return offset;
 	}
 
 	protected void updateNumberOfDescendants() {
@@ -105,7 +114,19 @@ public class BinaryTreeAlmostComplete {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO
+		int [] t = new int [10];
+		for (int i =0; i<10; i++){
+			t[i]= i;
+		}
+		BinaryTreeAlmostComplete bt = new BinaryTreeAlmostComplete(109);
+		BinaryTreeAlmostComplete bt2 = new BinaryTreeAlmostComplete(t);
+		bt.addValue(10);
+		bt.addValue(100);
+		bt.addValue(0);
+		bt.addValue(67);
+
+		String s = bt2.toString();
+		System.out.println(s);
 	}
 
 }
