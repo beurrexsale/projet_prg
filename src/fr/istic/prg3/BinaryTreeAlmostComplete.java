@@ -76,11 +76,70 @@ public class BinaryTreeAlmostComplete {
 	}
 
 	public void siftDown() {
-		// TODO
+		BinaryTreeAlmostComplete low = this.getRightmostLowestNode();
+		BinaryTreeAlmostComplete parent = low.up;
+		boolean modification = false;
+
+		while (low.rootValue > parent.rootValue){
+			modification = true;
+
+			int tmp = low.rootValue;
+			low.rootValue = parent.rootValue;
+			parent.rootValue = tmp;
+
+			low = parent;
+			parent = low.up;
+		}
+		if (modification)// si il y a eu des modifications on vérifie le sous abre et on le réordonne si nécessaire.
+		low.siftDown();
 	}
 
 	public void siftUp() {
-		// TODO
+		BinaryTreeAlmostComplete current = this;
+		BinaryTreeAlmostComplete right = this.right;
+		BinaryTreeAlmostComplete left = this.left;
+		int current_val = this.rootValue;
+		if (right != null){
+
+			if(left != null){ // left et right
+				int left_val = left.rootValue;
+				int right_val = right.rootValue;
+
+				if (current_val < right_val || current_val < left_val){
+					if (right_val < left_val){
+						current.rootValue = left_val;
+						left.rootValue = current_val;
+						left.siftUp(); //on recommence au niveau du fils qui a été modifié
+					}
+					else{
+						current.rootValue = right_val;
+						right.rootValue = current_val;
+						right.siftUp(); //on recommence au niveau du fils qui a été modifié
+					}
+				}
+			}
+			else{ //  left null et right
+				int right_val = right.rootValue;
+				if (current_val< right_val){
+					current.rootValue = right_val;
+					right.rootValue = current_val;
+					right.siftUp(); //on recommence au niveau du fils qui a été modifié
+				}
+			}
+		}
+		else{
+			if(left != null){ // rigth null et left
+				int left_val = left.rootValue;
+				if (current_val < left_val){
+					current.rootValue = left_val;
+					left.rootValue = current_val;
+					left.siftUp(); //on recommence au niveau du fils qui a été modifié
+				}
+
+
+			}
+			//sinon les 2 sont null
+		}
 	}
 
 	public String toString() {
